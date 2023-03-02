@@ -16,10 +16,10 @@ async function main() {
         console.log('Connection has been established successfully.');
         //if no exist CREATE tables
         await sequelize.sync({ force: false });
-        await https.createServer({
+       /*  await https.createServer({
             key: fs.readFileSync('cerezasverdes.pem')
-        }, app).listen(8080)
-        /* app.listen(8080) */
+        }, app).listen(8080) */
+        app.listen(8080)
         console.log('Servidor en el puerto 8080')
     } catch (error) {
         console.error('Unable to connect to the database:', error);
