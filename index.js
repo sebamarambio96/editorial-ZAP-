@@ -17,8 +17,8 @@ async function main() {
         //if no exist CREATE tables
         await sequelize.sync({ force: false });
         
-        app.listen(3000)
-        console.log('Servidor en el puerto 3000')
+        app.listen(8080)
+        console.log('Servidor en el puerto 8080')
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
