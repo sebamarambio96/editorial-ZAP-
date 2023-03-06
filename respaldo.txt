@@ -22,3 +22,10 @@
 }
 ]
 }
+
+{
+"name": "Sebastián Marambio",
+"rut": "192745357",
+"email": "emaildtest@gmail.com",
+"password": "1234556"
+}

@@ -32,6 +32,14 @@ router.get('/', async (req, res) => {
     res.sendFile("/pages/singUp.html")
 })
 
+router.get('/', async (req, res) => {
+    res.sendFile("/pages/signUp.html")
+})
+
+router.get('/', async (req, res) => {
+    res.sendFile("/pages/myAccount.html")
+})
+
 
 //EXPORT
 export default router

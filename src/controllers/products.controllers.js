@@ -30,7 +30,6 @@ export async function getSales(req, res) {
 
 //GET one product
 export async function getProduct(req, res) {
-    //Recorre todas las filas y genera un arreglo
     const { id } = req.params
     try {
         const product = await Products.findOne({

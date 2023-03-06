@@ -16,18 +16,9 @@ export async function backup(req, res) {
     //products BACKUP
     let dataProducts = fs.readFileSync('./public/data/products.json')
     let products = JSON.parse(dataProducts)
-    products.map(async product => {
-        const { name, id_category, price, stock, img } = product
-        await Products.create({
-            name,
-            id_category,
-            price,
-            stock,
-            img
-        })
-    })
+    await Products.bulkCreate(products)
+    res.sendStatus(204)
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
-    res.sendStatus(204)
 }

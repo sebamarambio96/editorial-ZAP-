@@ -2,6 +2,7 @@ import express from "express";
 import htmlRoutes from "./src/routes/html.routes.js";
 import productsRoutes from "./src/routes/products.routes.js";
 import backupRoutes from "./src/routes/backup.routes.js";
+import usersRoutes from "./src/routes/users.routes.js";
 import cors from 'cors';
 import favicon from 'serve-favicon'
 import path from 'path'
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use(htmlRoutes)
 app.use(productsRoutes)
 app.use(backupRoutes)
+app.use(usersRoutes)
 
 
 
