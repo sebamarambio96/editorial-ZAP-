@@ -4,11 +4,11 @@ const router = Router()
 
 //ROUTES
 
-router.get('/', async (req, res) => {
+router.get('/:1', async (req, res) => {
     res.sendFile("index.html")
 })
 
-router.get('/', async (req, res) => {
+/* router.get('/', async (req, res) => {
     res.sendFile("/pages/aboutUs.html")
 })
 
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
 router.get('/', async (req, res) => {
     res.sendFile("/pages/myAccount.html")
 })
-
+ */
 
 //EXPORT
 export default router
