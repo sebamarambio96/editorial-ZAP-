@@ -35,7 +35,7 @@ function register() {
                 text: 'El rut ingresado no es valido'
             })
         } else {
-            fetch(`http://localhost:8080/register/`, {
+            fetch(`https://editorialzap.up.railway.app/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
