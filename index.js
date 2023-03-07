@@ -1,5 +1,7 @@
 import app from "./app.js";
 import { sequelize } from "./src/database/database.js";
+import dotenv from "dotenv"; //traemos las variables de entorno
+dotenv.config({path: '.env'})
 import './src/models/Categories.js'
 import './src/models/Clients.js'
 import './src/models/InvoicesDetail.js'
@@ -16,8 +18,8 @@ async function main() {
         console.log('Connection has been established successfully.');
         //if no exist CREATE tables
         await sequelize.sync({ force: false });
-        app.listen(8080)
-        console.log('Servidor en el puerto 8080')
+        app.listen(process.env.PORT)
+        console.log(`Servidor en el puerto ${process.env.PORT}`)
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
