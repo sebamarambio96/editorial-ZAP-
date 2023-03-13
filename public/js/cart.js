@@ -1,4 +1,4 @@
-fetch("http://18.223.117.204/products")
+fetch("http://localhost:8080/products")
     .then((resp) => resp.json())
     .then(data => {
         const productos = data
@@ -217,7 +217,8 @@ function sendOrder() {
             })
         } else {
             let tokenO = JSON.parse(localStorage.getItem('token'))
-            fetch(`http://18.223.117.204/addOrder/`, {
+            console.log(tokenO)
+            fetch(`http://localhost:8080/addOrder/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -228,6 +229,14 @@ function sendOrder() {
                 .then(response => response.json())
                 .then(res => {
                     console.log(res)
+                    if (res.auth===false) {
+                        /* localStorage.removeItem('token') */
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `Debes iniciar sesión o volver a hacerlo.`
+                        })
+                    }
                     //PINTAR ORDEN
                     const templateOrder = document.getElementById('templateOrder').content
                     const responseOrderContainer = document.getElementById('responseOrderContainer')

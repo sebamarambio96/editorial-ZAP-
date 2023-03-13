@@ -17,7 +17,7 @@ function login() {
                 text: 'Debes rellenar todos los campos!'
             })
         } else {
-            fetch(`http://18.223.117.204/login/`, {
+            fetch(`http://localhost:8080/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -34,6 +34,7 @@ function login() {
                             title: 'Genial!',
                             text: `Has ingresado correctamente`
                         })
+                        location.href = "/index"
                     } else {
                         Swal.fire({
                             icon: 'error',

@@ -4,6 +4,7 @@ import { Invoices } from "../models/Invoices.js"
 import { InvoicesDetail } from "../models/InvoicesDetail.js"
 import { sequelize } from "../database/database.js"
 import jwt from 'jsonwebtoken'
+import { Users } from "../models/Users.js"
 const secret = 'esteeselsecreto'
 
 //GET all products
@@ -103,24 +104,26 @@ export async function deleteProduct(req, res) {
 
 //ADD invoice, invoice detal, client and UPDATE stock of each product
 export async function addOrder(req, res) {
-    const token = req.headers['x-access-token']
-    if (!token) {
-        return res.status(401).json({
-            auth: false,
-            message: 'Debes iniciar sesión para realizar una compra'
-        })
-    }
-    const decoded = jwt.verify(token, secret)
-    const { id } = decoded
-
-    //USER info
-    const user = await Users.findOne({ where: {id}})
-    if (!user) return res.status(404).json({ message: 'Usuario no existe' })
-    
-    const { address, items, totalPrice } = req.body;
-    const { name, rut, email } = user;
     const transaction = await sequelize.transaction();
     try {
+        const token = req.headers['x-access-token']
+        if (!token) {
+            return res.status(401).json({
+                auth: false,
+                message: 'Debes iniciar sesión para realizar una compra'
+            })
+        }
+        const decoded = jwt.verify(token, secret)
+        console.log(decoded)
+        const { id } = decoded
+
+        //USER info
+        const user = await Users.findOne({ where: { id } })
+        if (!user) return res.status(404).json({ message: 'Usuario no existe' })
+
+        const { address, items, totalPrice } = req.body;
+        const { name, rut, email } = user;
+
         //Add client
         const newClient = await Clients.create(
             {
@@ -131,10 +134,11 @@ export async function addOrder(req, res) {
             },
             { transaction: transaction }
         );
+        const {id:id_client}=newClient
         //Add Invoice
         const newInvoice = await Invoices.create(
             {
-                id,
+                id_client,
                 totalPrice
             },
             { transaction: transaction }
@@ -183,7 +187,7 @@ export async function addOrder(req, res) {
         res.status(201).json(detailOrder)
     } catch (error) {
         await transaction.rollback();
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({auth: false, message: error.message });
     }
 }
 

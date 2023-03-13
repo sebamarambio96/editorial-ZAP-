@@ -29,3 +29,5 @@
 "email": "emaildtest@gmail.com",
 "password": "1234556"
 }
+
+ssh ubuntu@18.223.117.204 -i cerezasverdes.pem
