@@ -1,4 +1,4 @@
-fetch("http://localhost:8080/products")
+fetch("http://18.223.117.204/products")
     .then((resp) => resp.json())
     .then(data => {
         const productos = data
@@ -218,7 +218,7 @@ function sendOrder() {
         } else {
             let tokenO = JSON.parse(localStorage.getItem('token'))
             console.log(tokenO)
-            fetch(`http://localhost:8080/addOrder/`, {
+            fetch(`http://18.223.117.204/addOrder/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
