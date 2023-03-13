@@ -1,4 +1,4 @@
-fetch("https://editorialzap.up.railway.app/products")
+fetch("18.223.117.204/products")
     .then((resp) => resp.json())
     .then(data => {
         const productos = data
@@ -216,10 +216,12 @@ function sendOrder() {
                 text: 'El rut ingresado no es valido'
             })
         } else {
-            fetch(`https://editorialzap.up.railway.app/addOrder/`, {
+            let tokenO = JSON.parse(localStorage.getItem('token'))
+            fetch(`18.223.117.204/addOrder/`, {
                 method: 'POST',
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    'x-access-token': tokenO
                 },
                 body: JSON.stringify(data)
             })

@@ -3,8 +3,8 @@ import { Clients } from "../models/Clients.js"
 import { Invoices } from "../models/Invoices.js"
 import { InvoicesDetail } from "../models/InvoicesDetail.js"
 import { sequelize } from "../database/database.js"
-
-
+import jwt from 'jsonwebtoken'
+const secret = 'esteeselsecreto'
 
 //GET all products
 export async function getProducts(req, res) {
@@ -103,7 +103,22 @@ export async function deleteProduct(req, res) {
 
 //ADD invoice, invoice detal, client and UPDATE stock of each product
 export async function addOrder(req, res) {
-    const { name, rut, email, address, items, totalPrice } = req.body;
+    const token = req.headers['x-access-token']
+    if (!token) {
+        return res.status(401).json({
+            auth: false,
+            message: 'Debes iniciar sesión para realizar una compra'
+        })
+    }
+    const decoded = jwt.verify(token, secret)
+    const { id } = decoded
+
+    //USER info
+    const user = await Users.findOne({ where: {id}})
+    if (!user) return res.status(404).json({ message: 'Usuario no existe' })
+    
+    const { address, items, totalPrice } = req.body;
+    const { name, rut, email } = user;
     const transaction = await sequelize.transaction();
     try {
         //Add client
@@ -116,11 +131,10 @@ export async function addOrder(req, res) {
             },
             { transaction: transaction }
         );
-        const { id: id_client } = newClient;
         //Add Invoice
         const newInvoice = await Invoices.create(
             {
-                id_client,
+                id,
                 totalPrice
             },
             { transaction: transaction }

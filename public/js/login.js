@@ -17,7 +17,7 @@ function login() {
                 text: 'Debes rellenar todos los campos!'
             })
         } else {
-            fetch(`https://editorialzap.up.railway.app/login/`, {
+            fetch(`18.223.117.204/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
