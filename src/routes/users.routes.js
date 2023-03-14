@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUsers, getUserInfo, addUser, login} from "../controllers/users.controllers.js";
+import { getUsers, getUserInfo, addUser, login, contact} from "../controllers/users.controllers.js";
 
 const router = Router()
 
@@ -18,5 +18,8 @@ router.post('/register',addUser)
 
 /* //MODIFY a product
 router.put('/users/:id', updateUser) */
+
+//Contact message
+router.post('/contact', contact)
 
 export default router

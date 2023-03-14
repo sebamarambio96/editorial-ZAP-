@@ -4,10 +4,16 @@ const templateBtnLogin = document.getElementById('templateBtnLogin').content;
 const templateMA = document.getElementById('templateMA').content;
 const fragmentMA = document.createDocumentFragment()
 if (token == null) {
+    while (loginContainer.firstChild) {
+        loginContainer.removeChild(loginContainer.firstChild);
+    }
     const clone = templateBtnLogin.cloneNode(true)
     fragmentMA.appendChild(clone)
     loginContainer.appendChild(fragmentMA)
 } else {
+    while (loginContainer.firstChild) {
+        loginContainer.removeChild(loginContainer.firstChild);
+    }
     const clone = templateMA.cloneNode(true)
     fragmentMA.appendChild(clone)
     loginContainer.appendChild(fragmentMA)
@@ -21,4 +27,5 @@ function signOut() {
         localStorage.removeItem('token');
         location.reload();
     }
-    )}
+    )
+}

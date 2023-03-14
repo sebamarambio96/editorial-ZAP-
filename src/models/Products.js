@@ -1,47 +1,56 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
+import { Carts } from "./Carts.js";
 import { InvoicesDetail } from "./InvoicesDetail.js";
 
-export const Products =  sequelize.define('products',{
-    id:{
+export const Products = sequelize.define('products', {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    name:{
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    id_category:{
+    id_category: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    price:{
+    price: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    stock:{
+    stock: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: { min: 0 }
     },
-    img:{
+    img: {
         type: DataTypes.STRING,
         allowNull: false,
     }
-},{
+}, {
     timestamps: true
 }
 )
 
-//Relacionar
 Products.hasMany(InvoicesDetail, {
-    //columan de task que queremos relacionar
     foreignKey: 'id_product',
-    //relacion de la tabla actual
     sourceKey: 'id',
 })
-//tareas pertenece a un solo proyecto
+
 InvoicesDetail.belongsTo(Products, {
+    foreignKey: 'id_product',
+    targetId: 'id'
+})
+
+Products.hasMany(Carts, {
+    foreignKey: 'id_product',
+    sourceKey: 'id',
+})
+
+Carts.belongsTo(Products, {
     foreignKey: 'id_product',
     targetId: 'id'
 })

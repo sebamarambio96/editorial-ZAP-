@@ -1,33 +1,27 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
-import { InvoicesDetail } from "./InvoicesDetail.js";
 
-export const Invoices =  sequelize.define('invoices',{
-    id:{
+export const Carts = sequelize.define('carts', {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    id_client:{
+    id_user: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    totalPrice:{
+    id_product: {
         type: DataTypes.INTEGER,
         allowNull: false,
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: { min: 0 }
     }
-},{
+}, {
     timestamps: true
 }
 )
 
-
-Invoices.hasMany(InvoicesDetail, {
-    foreignKey: 'id_invoice',
-    sourceKey: 'id',
-})
-
-InvoicesDetail.belongsTo(Invoices, {
-    foreignKey: 'id_invoice',
-    targetId: 'id'
-})

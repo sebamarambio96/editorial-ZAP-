@@ -30,9 +30,9 @@ export const Clients =  sequelize.define('clients',{
 )
 
 
-//Relacionar
+
 Clients.hasMany(Invoices, {
-    //columan de task que queremos relacionar
+    
     foreignKey: 'id_client',
     //relacion de la tabla actual
     sourceKey: 'id',

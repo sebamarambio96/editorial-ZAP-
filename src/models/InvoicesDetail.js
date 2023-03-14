@@ -18,6 +18,7 @@ export const InvoicesDetail =  sequelize.define('invoices_detail',{
     amount:{
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: { min: 0 }
     }
 },{
     timestamps: false

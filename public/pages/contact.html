@@ -11,8 +11,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="../js/preCartPages.js"></script>
     <script defer src="../js/contact.js"></script>
+    <script defer src="../js/navLogin.js"></script>
 </head>
 
 <body>
@@ -45,7 +47,11 @@
                         </li>
                     </ul>
                 </div>
-                <a href="login.html"><button type="button" class="btn btn-dark botonLogin">Ingresa</button></a>
+                <div id="loginContainer">
+                    <!-- MY ACCOUNT / LOGIN -->
+                    <a href="login.html"><button type="button" class="btn btn-dark botonLogin">Ingresa</button></a>
+                </div>
+
                 <form class="d-flex">
                     <button id="btnCompras" class="btn botonCarrito " type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -83,18 +89,18 @@
                     <form>
                         <div class="form-outline mb-2">
                             <label class="form-label">Nombre</label>
-                            <input type="text" id="formName" class="form-control" placeholder="Stan Lee" />
+                            <input type="text" id="name" class="form-control" placeholder="Stan Lee" />
                         </div>
 
                         <div class="form-outline mb-2">
                             <label class="form-label">Email</label>
-                            <input type="email" id="form4Email" class="form-control"
+                            <input type="email" id="email" class="form-control"
                                 placeholder="juanito.perez@gmail.com" />
                         </div>
 
                         <div class="form-outline mb-2">
-                            <label class="form-label" f>Mensaje</label>
-                            <textarea class="form-control" id="form4Message" rows="4" style="resize: none;"
+                            <label class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="message" rows="4" style="resize: none;"
                                 placeholder="Deja tu mensaje aquí"></textarea>
                         </div>
 
@@ -114,10 +120,6 @@
         </div>
     </main>
 
-    <section class="">
-
-    </section>
-
     <footer class="footerb footer_style">
         <ul class="footerLista animacion">
             <li>
@@ -134,7 +136,27 @@
             <li class="link">Wsp: +569 555 555 55</li>
         </ul>
     </footer>
-
+    <!-- MY ACCOUNT -->
+    <template id="templateMA">
+        <div class="dropdown botonLogin">
+            <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Mi cuenta
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item text-secondary" href="./myAcccount.html">Mis Datos</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><button class="dropdown-item text-danger" id="signOut" type="button" href="#">Cerrar sesión</button>
+                </li>
+            </ul>
+        </div>
+    </template>
+    <!-- btnLogin -->
+    <template id="templateBtnLogin">
+        <a href="login.html"><button type="button" class="btn btn-dark botonLogin">Ingresa</button></a>
+    </template>
     <!--     <footer class="container-fluid footerInicio navEstilo">
             <p class="float-end"><a href="#">Volver arriba</a></p>
             <p>Copyright 2022© <a href="#">Privacidad</a> &middot; <a href="#">Términos de uso y

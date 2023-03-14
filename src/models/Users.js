@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 import bcrypt from "bcryptjs";
+import { Carts } from "./Carts.js";
 
 
 export const Users = sequelize.define('user', {
@@ -39,3 +40,14 @@ Users.encryptPass = async function (password) {
 Users.validatePass = async function ( pass,passDB) {
     return bcrypt.compare(pass, passDB)
 };
+
+//Relations
+Users.hasMany(Carts, {
+    foreignKey: 'id_user',
+    sourceKey: 'id',
+})
+
+Carts.belongsTo(Users, {
+    foreignKey: 'id_user',
+    targetId: 'id'
+})

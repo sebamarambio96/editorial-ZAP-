@@ -35,7 +35,7 @@ function register() {
                 text: 'El rut ingresado no es valido'
             })
         } else {
-            fetch(`http://18.223.117.204/register/`, {
+            fetch(`http://localhost:8080/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -47,6 +47,11 @@ function register() {
                     if (res.auth) {
                         console.log(res)
                         localStorage.setItem('token', JSON.stringify(res.token))
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Genial!',
+                            text: `Te has registrado correctamente`
+                        })
                         location.href = "/index"
                     } else {
                         Swal.fire({

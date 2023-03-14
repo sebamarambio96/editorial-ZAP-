@@ -1,4 +1,4 @@
-fetch("http://18.223.117.204/products")
+fetch("http://localhost:8080/products")
     .then((resp) => resp.json())
     .then(data => {
         const productos = data
@@ -177,7 +177,7 @@ function sendOrder() {
             }
         })
         let inputNameCart = document.getElementById('inputNameCart').value
-        let inputTRutCart = document.getElementById('inputTRutCart').value
+        let inputRutCart = document.getElementById('inputRutCart').value
         let inputEmailCart = document.getElementById('inputEmailCart').value
         let inputAddressCart = document.getElementById('inputAddressCart').value
         let total = 0
@@ -187,7 +187,7 @@ function sendOrder() {
         })
         let totalPrice = total
         // Clear dots
-        let newRut = inputTRutCart.replace('.', '');
+        let newRut = inputRutCart.replace('.', '');
         newRut = newRut.replace('.', '');
         // Clear script
         newRut = newRut.replace('-', '');
@@ -218,7 +218,7 @@ function sendOrder() {
         } else {
             let tokenO = JSON.parse(localStorage.getItem('token'))
             console.log(tokenO)
-            fetch(`http://18.223.117.204/addOrder/`, {
+            fetch(`http://localhost:8080/addOrder/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -229,7 +229,7 @@ function sendOrder() {
                 .then(response => response.json())
                 .then(res => {
                     console.log(res)
-                    if (res.auth===false) {
+                    if (res.auth === false) {
                         /* localStorage.removeItem('token') */
                         Swal.fire({
                             icon: 'error',
@@ -264,6 +264,39 @@ function sendOrder() {
                 })
                 .catch(err => console.log(err))
         }
+    })
+}
+
+function sendOrder() {
+    const btn = document.getElementById('payToPay')
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        let tokenP = JSON.parse(localStorage.getItem('token'))
+        fetch(`http://localhost:8080/profile`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'x-access-token': tokenP
+            },
+        })
+            .then(response => response.json())
+            .then(item => {
+                console.log(item)
+                if (item.auth === false) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Debes iniciar sesión o volver a hacerlo.`
+                    })
+                }
+                let inputNameCart = document.getElementById('inputNameCart')
+                let inputRutCart = document.getElementById('inputRutCart')
+                let inputEmailCart = document.getElementById('inputEmailCart')
+                inputNameCart.value = item.name
+                inputRutCart.value = item.rut
+                inputEmailCart.value = item.email
+            })
+            .catch(err => console.log(err))
     })
 }
 

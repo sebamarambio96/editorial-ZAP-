@@ -15,36 +15,32 @@ router.get('/index', async (req, res) => {
     res.sendFile(path.join(__dirname,"../../public/index.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/aboutUs.html")
+router.get('/aboutUs.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/aboutUs.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/contact.html")
+router.get('/contact.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/contact.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/cart.html")
+router.get('/cart.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/cart.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/login.html")
+router.get('/login.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/login.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/products.html")
+router.get('/products.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/products.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/singUp.html")
+router.get('/signUp.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/signUp.html"))
 })
 
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/signUp.html")
-})
-
-router.get('/', async (req, res) => {
-    res.sendFile("/pages/myAccount.html")
+router.get('/myAccount.html', async (req, res) => {
+    res.sendFile(path.join(__dirname,"../../public/pages/myAccount.html"))
 })
 
 

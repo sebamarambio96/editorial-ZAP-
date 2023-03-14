@@ -17,14 +17,12 @@ export const Categories =  sequelize.define('categories',{
 }
 )
 
-//Relacionar
+
 Categories.hasMany(Products, {
-    //columan de task que queremos relacionar
     foreignKey: 'id_category',
-    //relacion de la tabla actual
     sourceKey: 'id',
 })
-//tareas pertenece a un solo proyecto
+
 Products.belongsTo(Categories, {
     foreignKey: 'id_category',
     targetId: 'id'

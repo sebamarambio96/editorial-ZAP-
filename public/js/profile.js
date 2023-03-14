@@ -1,7 +1,7 @@
 let token = JSON.parse(localStorage.getItem('token'))
 
 
-fetch(`http://18.223.117.204/profile`, {
+fetch(`http://localhost:8080/profile`, {
     method: 'GET',
     headers: {
         'Content-type': 'application/json',

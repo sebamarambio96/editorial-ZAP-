@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script defer src="../js/preCartPages.js"></script>
     <script defer src="../js/dbManager.js"></script>
+    <script defer src="../js/navLogin.js"></script>
 </head>
 
 <body>
@@ -45,7 +46,10 @@
                         </li>
                     </ul>
                 </div>
-                <a href="login.html"><button type="button" class="btn btn-dark botonLogin">Ingresa</button></a>
+                <div id="loginContainer">
+                    <!-- MY ACCOUNT / LOGIN -->
+                    <a href="login.html"><button type="button" class="btn btn-dark botonLogin">Ingresa</button></a>
+                </div>
                 <form class="d-flex">
                     <button id="btnCompras" class="btn botonCarrito " type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -307,6 +311,27 @@
                         <img id="imgProductoCompras" class="" src="#" alt="#" width="75" height="100">
                     </div>
                 </div>
+            </template>
+            <!-- MY ACCOUNT -->
+            <template id="templateMA">
+                <div class="dropdown botonLogin">
+                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Mi cuenta
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item text-secondary" href="./myAcccount.html">Mis Datos</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item text-danger" id="signOut" type="button" href="#">Cerrar
+                                sesión</button></li>
+                    </ul>
+                </div>
+            </template>
+            <!-- btnLogin -->
+            <template id="templateBtnLogin">
+                <a href="login.html"><button type="button" class="btn btn-dark botonLogin">Ingresa</button></a>
             </template>
     </main>
 
