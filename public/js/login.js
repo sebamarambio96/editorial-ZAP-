@@ -17,7 +17,7 @@ function login() {
                 text: 'Debes rellenar todos los campos!'
             })
         } else {
-            fetch(`http://localhost:8080/login/`, {
+            fetch(`http://18.223.117.204/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'

@@ -31,3 +31,10 @@
 }
 
 ssh ubuntu@18.223.117.204 -i cerezasverdes.pem
+cd projects/editorial-ZAP-
+
+{
+"name": "Sebastián Marambio",
+"email": "emaildtest@gmail.com",
+"message": "Quisiera hacer una cotización"
+}

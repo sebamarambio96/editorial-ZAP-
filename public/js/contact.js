@@ -19,7 +19,7 @@ function contactForm() {
                 text: 'Debes rellenar todos los campos!'
             })
         } else {
-            fetch(`http://localhost:8080/contact/`, {
+            fetch(`http://18.223.117.204/contact/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
