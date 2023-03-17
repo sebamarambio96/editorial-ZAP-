@@ -5,7 +5,7 @@ import { InvoicesDetail } from "../models/InvoicesDetail.js"
 import { sequelize } from "../database/database.js"
 import jwt from 'jsonwebtoken'
 import { Users } from "../models/Users.js"
-const secret = 'esteeselsecreto'
+export const secret = 'esteeselsecreto'
 
 //GET all products
 export async function getProducts(req, res) {
@@ -134,7 +134,7 @@ export async function addOrder(req, res) {
             },
             { transaction: transaction }
         );
-        const {id:id_client}=newClient
+        const { id: id_client } = newClient
         //Add Invoice
         const newInvoice = await Invoices.create(
             {
@@ -187,17 +187,8 @@ export async function addOrder(req, res) {
         res.status(201).json(detailOrder)
     } catch (error) {
         await transaction.rollback();
-        return res.status(500).json({auth: false, message: error.message });
+        return res.status(500).json({ auth: false, message: error.message });
     }
 }
-
-
-
-
-
-
-
-
-
 
 

@@ -24,7 +24,7 @@ if (token == null) {
 function signOut() {
     const btn = document.getElementById('signOut')
     btn.addEventListener('click', (e) => {
-        localStorage.removeItem('token');
+        localStorage.clear()
         location.reload();
     }
     )

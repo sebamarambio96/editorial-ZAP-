@@ -35,7 +35,7 @@ function register() {
                 text: 'El rut ingresado no es valido'
             })
         } else {
-            fetch(`http://18.223.117.204/register/`, {
+            fetch(`http://localhost:8080/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'

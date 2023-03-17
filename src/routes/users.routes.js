@@ -16,7 +16,7 @@ router.post('/login', login)
 //ADD new user
 router.post('/register',addUser)
 
-/* //MODIFY a product
+/* //MODIFY a user
 router.put('/users/:id', updateUser) */
 
 //Contact message

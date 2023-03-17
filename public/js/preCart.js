@@ -1,5 +1,5 @@
-
-fetch("http://18.223.117.204/products")
+const contadorCompras = document.getElementById('contadorCompras')
+fetch("http://localhost:8080/products")
     .then((resp) => resp.json())
     .then(data => {
 
@@ -9,7 +9,6 @@ fetch("http://18.223.117.204/products")
         const containerHorror = document.getElementById('containerHorror')
         const fragment = document.createDocumentFragment()
         const template = document.getElementById('templateProducto').content;
-        /* console.log(template); */
 
         const horror = productos.filter(product => product.id_category == 1)
         horror.forEach(producto => {
@@ -90,7 +89,7 @@ fetch("http://18.223.117.204/products")
             btn.forEach(btn => {
                 btn.addEventListener('click', () => {
                     let producto = {}
-                    fetch(`http://18.223.117.204/products/${btn.dataset.id}`)
+                    fetch(`http://localhost:8080/products/${btn.dataset.id}`)
                         .then((resp) => resp.json())
                         .then(data => {
                             const product = data
@@ -110,24 +109,48 @@ fetch("http://18.223.117.204/products")
         detectBtnDetail(productos)
         //CARRITO
 
-
+        //Obtener carrito
+        let tokenP = JSON.parse(localStorage.getItem('token'))
         let carritoGuardado = JSON.parse(localStorage.getItem('compras'))
         let carrito = {}
-        /* console.log(carrito) */
         if (carritoGuardado == null) {
             carrito = {}
         } else {
             carritoGuardado.map(producto => {
                 carrito[producto.id] = { ...producto }
-                /* console.log(carrito) */
             })
         }
-        /* console.log(carrito) */
-
+        if (tokenP) {
+            fetch(`http://localhost:8080/cart`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'x-access-token': tokenP
+                }
+            })
+                .then(response => response.json())
+                .then(res => {
+                    const carrito = res.map(item => {
+                        const productData = productos.find(p => p.id === item.id_product)
+                        const cartItem = {
+                            ...productData,
+                            cantidad: item.quantity
+                        }
+                        return cartItem
+                    })
+                    console.log(carrito)
+                    const contador = carrito.reduce((accumulator, x) => accumulator + x.cantidad,0);
+                    console.log(contador)
+                    contadorCompras.textContent = `${contador}`
+                    localStorage.setItem('compras', JSON.stringify(carrito))
+                    localStorage.setItem('contador', JSON.stringify(contador))
+                    localStorage.setItem('carrito', JSON.stringify(carrito))
+                })
+                .catch(err => console.log(err))
+        }
 
         let arrayCompras = []
         let contador = JSON.parse(localStorage.getItem('contador'))
-        /* console.log(contador) */
         if (contador == null) {
             contador = 0
         } else if (contador !== null) {
@@ -136,7 +159,6 @@ fetch("http://18.223.117.204/products")
         }
 
 
-        /* console.log(contador) */
         const detectarBotones = (productos) => {
             const botones = document.querySelectorAll('.card .agregar')
             botones.forEach(btn => {
@@ -144,42 +166,51 @@ fetch("http://18.223.117.204/products")
                     let producto = {}
                     console.log(btn.dataset.id)
                     producto = productos.find(item => item.id == btn.dataset.id)
-                    /* console.log(producto) */
                     producto.cantidad = 1
                     if (carrito.hasOwnProperty(producto.id)) {
                         producto.cantidad = carrito[producto.id].cantidad + 1
-                        /* console.log(producto.cantidad) */
                     }
-
                     carrito[producto.id] = { ...producto }
-                    /* console.log(carrito) */
-
                     arrayCompras = Object.values(carrito)
-                    /* console.log(arrayCompras) */
-
-
-                    /* console.log(carrito) */
                     let contadorInterno = 0
                     arrayCompras.map(producto => {
                         contadorInterno += producto.cantidad
-                        /* console.log(producto.cantidad) */
-                        /* console.log(contadorInterno) */
                     })
-                    /* console.log(contador) */
-                    /* console.log(contador + contadorInterno) */
-
-                    const contadorCompras = document.getElementById('contadorCompras')
+                    console.log(arrayCompras)
+                    
                     contadorCompras.textContent = `${contadorInterno}`
-
-                    localStorage.setItem('contador', JSON.stringify(contadorInterno))
-                    localStorage.setItem('compras', JSON.stringify(arrayCompras))
-                    localStorage.setItem('carrito', JSON.stringify(carrito))
+                    let token = JSON.parse(localStorage.getItem('token'))
+                    if (token) {
+                        const arrayComprasServer = arrayCompras.map(producto => {
+                            const objeto = {
+                                id_product: producto.id,
+                                quantity: producto.cantidad
+                            }
+                            return objeto
+                        })
+                        console.log(arrayComprasServer)
+                        fetch(`http://localhost:8080/cart`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                                'x-access-token': token
+                            },
+                            body: JSON.stringify(arrayComprasServer)
+                        })
+                            .then(res => {
+                                localStorage.setItem('contador', JSON.stringify(contadorInterno))
+                                localStorage.setItem('compras', JSON.stringify(arrayCompras))
+                                localStorage.setItem('carrito', JSON.stringify(carrito))
+                            })
+                            .catch(err => console.log(err))
+                    } else {
+                        localStorage.setItem('contador', JSON.stringify(contadorInterno))
+                        localStorage.setItem('compras', JSON.stringify(arrayCompras))
+                        localStorage.setItem('carrito', JSON.stringify(carrito))
+                    }
                 })
             })
-
         }
-
-        /*         let usuaria = JSON.parse(sessionStorage.getItem('user')) */
         detectarBotones(productos)
 
         const templateCompras = document.getElementById('templateCompras').content
@@ -188,10 +219,8 @@ fetch("http://18.223.117.204/products")
         const btnCompras = document.getElementById('btnCompras');
 
         arrayCompras = JSON.parse(localStorage.getItem('compras'))
-        /* console.log(arrayCompras) */
         if (arrayCompras !== null) {
             arrayCompras.map(producto => {
-                /* console.log(producto) */
                 let imgProducto = templateCompras.getElementById('imgProductoCompras')
                 let cantidadProducto = templateCompras.getElementById('cantidadProductoCompras')
                 let tituloProducto = templateCompras.getElementById('tituloProductoCompras')
@@ -208,13 +237,12 @@ fetch("http://18.223.117.204/products")
             containerCompras.appendChild(fragmentCompras)
         }
 
+        //Pinta resumen del carrito
         btnCompras.addEventListener('click', () => {
-            /* containerCompras.parentNode.removeChild(templateCompras) */
             while (containerCompras.firstChild) {
                 containerCompras.removeChild(containerCompras.firstChild);
             }
             arrayCompras.map(producto => {
-                /* console.log(producto) */
                 let imgProducto = templateCompras.getElementById('imgProductoCompras')
                 let cantidadProducto = templateCompras.getElementById('cantidadProductoCompras')
                 let tituloProducto = templateCompras.getElementById('tituloProductoCompras')
