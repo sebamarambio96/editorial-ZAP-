@@ -1,4 +1,4 @@
-fetch("http://localhost:8080/products")
+fetch("http://18.223.117.204/products")
     .then((resp) => resp.json())
     .then(data => {
         const productos = data
@@ -218,7 +218,7 @@ function sendOrder() {
         } else {
             let tokenO = JSON.parse(localStorage.getItem('token'))
             console.log(tokenO)
-            fetch(`http://localhost:8080/addOrder/`, {
+            fetch(`http://18.223.117.204/addOrder/`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -272,7 +272,7 @@ function sendOrder() {
     btn.addEventListener('click', (e) => {
         e.preventDefault()
         let tokenP = JSON.parse(localStorage.getItem('token'))
-        fetch(`http://localhost:8080/profile`, {
+        fetch(`http://18.223.117.204/profile`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',

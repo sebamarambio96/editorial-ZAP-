@@ -23,14 +23,14 @@ export async function updateCart(req, res) {
                 await productCart.update({
                     id_user: id,
                     id_product: x.id_product,
-                    quantity: x.id_user
+                    quantity: x.quantity
                 });
                 await productCart.save();
             } else {
                 const newCart = await Carts.create({
-                    id_user,
-                    id_product,
-                    quantity
+                    id_user:id,
+                    id_product: x.id_product,
+                    quantity: x.quantity
                 });
             }
         })

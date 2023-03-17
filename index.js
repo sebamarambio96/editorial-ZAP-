@@ -7,8 +7,8 @@ import './src/models/Clients.js'
 import './src/models/InvoicesDetail.js'
 import './src/models/Invoices.js'
 import './src/models/Products.js'
-/* import './src/models/Users.js'
-import './src/models/Contact.js' */
+import './src/models/Users.js'
+import './src/models/Contact.js'
 
 //Pagina que inicia el servidor
 

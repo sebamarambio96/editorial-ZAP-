@@ -1,5 +1,5 @@
 const contadorCompras = document.getElementById('contadorCompras')
-fetch("http://localhost:8080/products")
+fetch("http://18.223.117.204/products")
     .then((resp) => resp.json())
     .then(data => {
 
@@ -89,7 +89,7 @@ fetch("http://localhost:8080/products")
             btn.forEach(btn => {
                 btn.addEventListener('click', () => {
                     let producto = {}
-                    fetch(`http://localhost:8080/products/${btn.dataset.id}`)
+                    fetch(`http://18.223.117.204/products/${btn.dataset.id}`)
                         .then((resp) => resp.json())
                         .then(data => {
                             const product = data
@@ -121,7 +121,7 @@ fetch("http://localhost:8080/products")
             })
         }
         if (tokenP) {
-            fetch(`http://localhost:8080/cart`, {
+            fetch(`http://18.223.117.204/cart`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -189,7 +189,7 @@ fetch("http://localhost:8080/products")
                             return objeto
                         })
                         console.log(arrayComprasServer)
-                        fetch(`http://localhost:8080/cart`, {
+                        fetch(`http://18.223.117.204/cart`, {
                             method: 'POST',
                             headers: {
                                 'Content-type': 'application/json',
@@ -242,6 +242,8 @@ fetch("http://localhost:8080/products")
             while (containerCompras.firstChild) {
                 containerCompras.removeChild(containerCompras.firstChild);
             }
+            if(!arrayCompras) {location.reload()}
+            arrayCompras = JSON.parse(localStorage.getItem('compras'))
             arrayCompras.map(producto => {
                 let imgProducto = templateCompras.getElementById('imgProductoCompras')
                 let cantidadProducto = templateCompras.getElementById('cantidadProductoCompras')
